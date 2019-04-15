@@ -21,20 +21,14 @@ net start w32time
 echo [%TIME%] 응답 서버 시간 동기화 시도
 echo.
 timeout /t 1 > nul
-w32tm /config /manualpeerlist:211.234.237.12 /syncfromflags:manual /update
+w32tm /config /manualpeerlist:27.101.215.199 /syncfromflags:manual /update
 echo.
 timeout /t 1 > nul
 echo [%TIME%] 서버 시간 동기화 완료
 echo.
 timeout /t 1 > nul
-set /p id=아이디 입력:
-set /p pwd=비밀번호 입력:
-set /p code=코드 입력:
-set /p start_hour=개시 시간 시 입력:
-set /p start_minute=개시 시간 분 입력:
 
 setlocal
 cd /d %~dp0
-start macro.ahk
-python control.py %id% %pwd% %date% %time% %code% %start_hour% %start_minute%
+python control.py
 pause
