@@ -38,7 +38,7 @@ ch = input(' [+] 요일 선택 : ')
 print(Style.BRIGHT + '\n [' + str(datetime.datetime.now()) + '] Launching Browser... ')
 dir = os.getcwd() + '\\chromedriver.exe'
 chrome_options = Options()
-chrome_options.binary_location = 'C:\\Users\\LUFT-AQUILA\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe'
+#chrome_options.binary_location = 'C:\\Users\\LUFT-AQUILA\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe'
 try:
     driver = webdriver.Chrome(executable_path = dir, options = chrome_options)
 except selenium.common.exceptions.WebDriverException:
