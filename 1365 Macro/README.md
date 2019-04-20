@@ -9,7 +9,7 @@ Selenium-based Automation Tool
 
 ## 1. 다운로드
 
-1. `Control.zip` [다운로드](https://github.com/luftaquila/Web-Automation/releases/tag/v1.1.0)
+1. `Control.zip` [다운로드](https://github.com/luftaquila/Web-Automation/releases/)
 2. *Control.zip은(는) 위험할 수 있으므로 다운로드하지 않습니다.* 경고 출력 시 옆의 `^` 아이콘 클릭
 3. `계속(k)` 클릭
 4. `Control.zip` 압축 해제
@@ -42,16 +42,19 @@ Selenium-based Automation Tool
 3. 타겟 봉사활동 특정 단계
     * 개인 봉사활동(시간인증) 검색창에서 목표 봉사활동 검색  
     
+4. 표준 시간 동기화 단계
+    * *Synchronizing time with NTP Server kr.pool.ntp.org...* 출력
+    * 한국 표준 NTP 서버 풀과 시간 동기화 시도  
+    * 실패 시 time.google.com과 동기화 재시도
+    
 4. 봉사활동 신청 대기 단계
-    * 봉사활동이 오픈되는 자정에서 0.2초 직전까지 대기  
-    카운트다운 및 현재 시간 출력
-    * 카운트다운 시간은 한국 표준 NTP 서버 풀과 동기화  
-    * 23시 59분 59.8초에 다음 단계로 이동  
-    * 테스트 도구 `tester.bat`은 이 단계에서 3초간 카운트다운 대기 후 진행합니다. 
+    * 당일 자정에서 0.2초 직전까지 대기. 카운트다운 및 현재 시간 출력
+    * 23시 59분 59초 800ms에 다음 단계로 이동  
+    * 테스트 도구 `tester.bat`은 이 단계에서 5초간 카운트다운 대기 후 진행합니다. 
 
 5. 서버시간 대기 단계
-    * 1365 서버의 시간지연을 고려하여 1초간 요청 대기  
     * *Waiting 1 sec for request safety* 출력
+    * 1365 서버의 시간지연을 고려하여 1초간 요청 대기  
     
 6. 봉사활동 목록 새로고침 단계  
     * *Refreshing list...* 출력  
