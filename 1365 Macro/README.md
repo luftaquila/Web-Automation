@@ -24,7 +24,7 @@ Selenium-based Automation Tool
 3. 봉사활동을 신청할 1365 계정의 아이디 및 비밀번호 입력
 4. 요일 입력 : 토요일 신청 시 1, 일요일 신청 시 2 입력
 5. *Windows 보안 경고* 방화벽 팝업 시 `액세스 허용(A)` 클릭  
-<br>
+
 6. 이후 모든 동작 자동으로 수행
 
 ## 3. Troubleshooting
