@@ -10,6 +10,7 @@ Selenium-based Automation Tool
 ## 1. 다운로드
 
 1. `Control.zip` [다운로드](https://github.com/luftaquila/Web-Automation/releases/)
+    * 최신 릴리즈는 `v1.1.2`입니다.
 2. *Control.zip은(는) 위험할 수 있으므로 다운로드하지 않습니다.* 경고 출력 시 옆의 `^` 아이콘 클릭
 3. `계속(k)` 클릭
 4. `Control.zip` 압축 해제
@@ -25,7 +26,7 @@ Selenium-based Automation Tool
 4. 요일 입력 : 토요일 신청 시 1, 일요일 신청 시 2 입력
 5. *Windows 보안 경고* 방화벽 팝업 시 `액세스 허용(A)` 클릭  
 
-6. 이후 모든 동작 자동으로 수행
+6. 이후 모든 동작은 프로그램이 자동으로 수행합니다.
 
 ## 3. Troubleshooting
 ### 1. *ERROR_chrome_not_installed*
@@ -38,7 +39,7 @@ Selenium-based Automation Tool
 
 ### 3. *ERROR_login_failure_wrong_info*
 로그인 시도가 실패한 경우.  
-프로그램이 처음부터 다시 실행됨.
+프로그램이 처음부터 다시 실행.
     
 ### 4. *ERROR_NTP_Server_not_responding*
 표준시간 동기화를 위한 한국 표준 NTP 타임 서버 풀이 응답하지 않는 경우.  
