@@ -34,16 +34,17 @@ Selenium-based Automation Tool
 [크롬 재설치](https://www.google.com/intl/ko_ALL/chrome/) 권장
      
 ### 2. *ERROR_login_failure_not_visible*
-반응형 웹으로 인한 HTML 구조 변화로 로그인 버튼을 찾을 수 없는 경우.  
+반응형 웹의 HTML 구조 변화로 로그인 버튼을 찾을 수 없는 경우.  
 프로그램이 자동으로 로그인 재시도.
 
 ### 3. *ERROR_login_failure_wrong_info*
 로그인 시도가 실패한 경우.  
-프로그램이 처음부터 다시 실행.
+프로그램이 처음부터 다시 실행. ID 및 PW 재입력.
     
 ### 4. *ERROR_NTP_Server_not_responding*
-표준시간 동기화를 위한 한국 표준 NTP 타임 서버 풀이 응답하지 않는 경우.  
-프로그램이 자동으로 구글 NTP 타임 서버와 동기화 재시도.
+표준시간 동기화를 위한 NTP 타임 서버가 응답하지 않는 경우.  
+한국 표준 NTP 타임 서버 풀 *kr.pool.ntp.org*이 응답하지 않는 경우, 구글 NTP 타임 서버 *time.google.com*에 동기화 시도.  
+두 서버가 모두 응답하지 않을 경우 컴퓨터의 로컬 시간을 사용. 시간이 맞지 않을 수 있습니다.  
 
 ### 5. *ERROR_no_result*
 봉사활동 검색 결과가 존재하지 않는 경우.  
