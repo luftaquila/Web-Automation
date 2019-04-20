@@ -27,57 +27,28 @@ Selenium-based Automation Tool
 <br>
 6. 이후 모든 동작 자동으로 수행
 
-## 3. 프로그램 동작
-1. 브라우저 실행 단계
-    * Launching Browser... 출력  
-     *Chrome이 자동화된 테스트 소프트웨어에 의해 제어되고 있습니다.* 안내창 및 브라우저 실행
+## 3. Troubleshooting
+### 1. *ERROR_chrome_not_installed*
+브라우저 실행 단계에서 정상적인 크롬 설치를 발견할 수 없는 경우.  
+[크롬 재설치](https://www.google.com/intl/ko_ALL/chrome/) 권장
      
-2. 1365 포털 로그인 시도 단계
-    * Attempting to logging in... 출력  
-    * 반응형 웹으로 인해 로그인 버튼을 찾을 수 없을 경우 *ERROR_login_failure_not_visible* 출력  
-    Retrying... 출력 및 재시도
-    * 로그인 실패 시 *ERROR_login_failure_wrong_info* 출력  
-    프로그램 재시작 및 아이디/비밀번호 재입력  
-    
-3. 타겟 봉사활동 특정 단계
-    * 개인 봉사활동(시간인증) 검색창에서 목표 봉사활동 검색  
-    
-4. 표준 시간 동기화 단계
-    * *Synchronizing time with NTP Server kr.pool.ntp.org...* 출력
-    * 한국 표준 NTP 서버 풀과 시간 동기화 시도  
-    * 실패 시 time.google.com과 동기화 재시도
-    
-4. 봉사활동 신청 대기 단계
-    * 당일 자정에서 0.2초 직전까지 대기. 카운트다운 및 현재 시간 출력
-    * 23시 59분 59초 800ms에 다음 단계로 이동  
-    * 테스트 도구 `tester.bat`은 이 단계에서 5초간 카운트다운 대기 후 진행합니다. 
+### 2. *ERROR_login_failure_not_visible*
+반응형 웹으로 인한 HTML 구조 변화로 로그인 버튼을 찾을 수 없는 경우.  
+프로그램이 자동으로 로그인 재시도.
 
-5. 서버시간 대기 단계
-    * *Waiting 1 sec for request safety* 출력
-    * 1365 서버의 시간지연을 고려하여 1초간 요청 대기  
+### 3. *ERROR_login_failure_wrong_info*
+로그인 시도가 실패한 경우.  
+프로그램이 처음부터 다시 실행됨.
     
-6. 봉사활동 목록 새로고침 단계  
-    * *Refreshing list...* 출력  
-    * 현재 모집중인 목표 봉사활동 검색 요청  
- 
-7. 타겟 봉사활동 선택 단계  
-    * *Selecting Target...* 출력  
-    * 검색결과 리스트 최상단 검색결과 선택 시도  
-    * 목표 봉사활동에 클릭 이벤트 발생이 가능해질 때까지 10초간 대기  
-    클릭 실패 시 *ERROR_no_result* 출력
+### 4. *ERROR_NTP_Server_not_responding*
+표준시간 동기화를 위한 한국 표준 NTP 타임 서버 풀이 응답하지 않는 경우.  
+프로그램이 자동으로 구글 NTP 타임 서버와 동기화 재시도.
+
+### 5. *ERROR_no_result*
+봉사활동 검색 결과가 존재하지 않는 경우.  
     
-8. 봉사활동 신청 단계  
-    * 목표 봉사활동에 진입 후 봉사활동 신청 버튼 클릭 시도  
-    * *Attempting to apply...* 출력
-    * 클릭 실패 시 *ERROR_not_applicatble* 출력
-    
-9. 날짜 선택 단계 
-    * 모집중인 날짜 선택 시도  
-    * 요일 입력 단계에서 입력한 결과에 따라 모집중인 첫 번째 혹은 두 번째 날짜 선택  
-    * 해당 요소가 없을 경우 *ERROR_no_available_date* 출력
-    
-10. 신청 확정 단계
-    * 개인정보 수집 동의 체크박스 및 신청 확인 클릭  
-    
-11. 프로그램 종료
-    * 프로그램 동작에 소요된 시간 출력 및 
+### 6. *ERROR_not_appliable*
+봉사활동 상세 페이지에 신청하기 버튼이 존재하지 않는 경우.
+
+### 7. *ERROR_no_available_date*
+봉사활동에 모집중 상태인 날짜가 존재하지 않는 경우.
