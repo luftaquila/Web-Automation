@@ -9,11 +9,11 @@ Selenium-based Automation Tool
 
 ## 1. 다운로드
 
-1. `Controller-Release.zip` [다운로드](https://github.com/luftaquila/Web-Automation/releases/)
+1. `Controller.zip` [다운로드](https://github.com/luftaquila/Web-Automation/releases/)
     * 최신 릴리즈  `v1.1.2`입니다.
-2. *Controller-Release.zip은(는) 위험할 수 있으므로 다운로드하지 않습니다.* 경고 출력 시 옆의 `^` 아이콘 클릭
+2. *Controller.zip은(는) 위험할 수 있으므로 다운로드하지 않습니다.* 경고 출력 시 옆의 `^` 아이콘 클릭
 3. `계속(k)` 클릭
-4. `Controller-Release.zip` 압축 해제
+4. `Controller.zip` 압축 해제
 
 ## 2. 사용 방법
 
