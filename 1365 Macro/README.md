@@ -2,17 +2,18 @@
 Selenium-based Automation Tool
 
 ## 0. 주의사항
-1. 크롬 웹 드라이버를 사용하는 프로그램입니다. 정상적인 경로로 설치된 구글 크롬 브라우저가 있어야 동작합니다.
+1. 크롬 웹 드라이버를 사용하는 프로그램입니다. 정상적인 경로로 설치된 구글 크롬 브라우저가 로컬에 존재해야 동작합니다.
 2. 테스트 모드 `tester.bat` 은 임의의 무작위 봉사활동에 신청 확인 직전까지 진행하는 동작 테스트 도구입니다.  
 실제 신청 시 `control.bat` 을 사용하세요.
 
 
 ## 1. 다운로드
 
-1. `Control.zip` [다운로드](https://github.com/luftaquila/Web-Automation/releases/tag/v1.1.0)
-2. *Control.zip은(는) 위험할 수 있으므로 다운로드하지 않습니다.* 경고 출력 시 옆의 `^` 아이콘 클릭
+1. `Controller.zip` [다운로드](https://github.com/luftaquila/Web-Automation/releases/)
+    * 최신 릴리즈 버전은 `v1.1.2`입니다.
+2. *Controller.zip은(는) 위험할 수 있으므로 다운로드하지 않습니다.* 경고 출력 시 옆의 `^` 아이콘 클릭
 3. `계속(k)` 클릭
-4. `Control.zip` 압축 해제
+4. `Controller.zip` 압축 해제
 
 ## 2. 사용 방법
 
@@ -24,57 +25,32 @@ Selenium-based Automation Tool
 3. 봉사활동을 신청할 1365 계정의 아이디 및 비밀번호 입력
 4. 요일 입력 : 토요일 신청 시 1, 일요일 신청 시 2 입력
 5. *Windows 보안 경고* 방화벽 팝업 시 `액세스 허용(A)` 클릭  
-<br>
-6. 이후 모든 동작 자동으로 수행
 
-## 3. 프로그램 동작
-1. 브라우저 실행 단계
-    * Launching Browser... 출력  
-     *Chrome이 자동화된 테스트 소프트웨어에 의해 제어되고 있습니다.* 안내창 및 브라우저 실행
+6. 이후 모든 동작은 프로그램이 자동으로 수행합니다.
+
+## 3. Troubleshooting
+### 1. *ERROR_chrome_not_installed*
+브라우저 실행 단계에서 정상적인 크롬 설치를 발견할 수 없는 경우.  
+[크롬 재설치](https://www.google.com/intl/ko_ALL/chrome/) 권장
      
-2. 1365 포털 로그인 시도 단계
-    * Attempting to logging in... 출력  
-    * 반응형 웹으로 인해 로그인 버튼을 찾을 수 없을 경우 *ERROR_login_failure_not_visible* 출력  
-    Retrying... 출력 및 재시도
-    * 로그인 실패 시 *ERROR_login_failure_wrong_info* 출력  
-    프로그램 재시작 및 아이디/비밀번호 재입력  
-    
-3. 타겟 봉사활동 특정 단계
-    * 개인 봉사활동(시간인증) 검색창에서 목표 봉사활동 검색  
-    
-4. 봉사활동 신청 대기 단계
-    * 봉사활동이 오픈되는 자정에서 0.2초 직전까지 대기  
-    카운트다운 및 현재 시간 출력
-    * 카운트다운 시간은 한국 표준 NTP 서버 풀과 동기화  
-    * 23시 59분 59.8초에 다음 단계로 이동  
-    * 테스트 도구 `tester.bat`은 이 단계에서 3초간 카운트다운 대기 후 진행합니다. 
+### 2. *ERROR_login_failure_not_visible*
+반응형 웹의 HTML 구조 변화로 로그인 버튼을 찾을 수 없는 경우.  
+프로그램이 자동으로 로그인 재시도.
 
-5. 서버시간 대기 단계
-    * 1365 서버의 시간지연을 고려하여 1초간 요청 대기  
-    * *Waiting 1 sec for request safety* 출력
+### 3. *ERROR_login_failure_wrong_info*
+로그인 시도가 실패한 경우.  
+프로그램이 처음부터 다시 실행. ID 및 PW 재입력.
     
-6. 봉사활동 목록 새로고침 단계  
-    * *Refreshing list...* 출력  
-    * 현재 모집중인 목표 봉사활동 검색 요청  
- 
-7. 타겟 봉사활동 선택 단계  
-    * *Selecting Target...* 출력  
-    * 검색결과 리스트 최상단 검색결과 선택 시도  
-    * 목표 봉사활동에 클릭 이벤트 발생이 가능해질 때까지 10초간 대기  
-    클릭 실패 시 *ERROR_no_result* 출력
+### 4. *ERROR_NTP_Server_not_responding*
+표준시간 동기화를 위한 NTP 타임 서버가 응답하지 않는 경우.  
+한국 표준 NTP 타임 서버 풀 *kr.pool.ntp.org*이 응답하지 않는 경우, 구글 NTP 타임 서버 *time.google.com*에 동기화 시도.  
+두 서버가 모두 응답하지 않을 경우 컴퓨터의 로컬 시간을 사용. 시간이 맞지 않을 수 있습니다.  
+
+### 5. *ERROR_no_result*
+봉사활동 검색 결과가 존재하지 않는 경우.  
     
-8. 봉사활동 신청 단계  
-    * 목표 봉사활동에 진입 후 봉사활동 신청 버튼 클릭 시도  
-    * *Attempting to apply...* 출력
-    * 클릭 실패 시 *ERROR_not_applicatble* 출력
-    
-9. 날짜 선택 단계 
-    * 모집중인 날짜 선택 시도  
-    * 요일 입력 단계에서 입력한 결과에 따라 모집중인 첫 번째 혹은 두 번째 날짜 선택  
-    * 해당 요소가 없을 경우 *ERROR_no_available_date* 출력
-    
-10. 신청 확정 단계
-    * 개인정보 수집 동의 체크박스 및 신청 확인 클릭  
-    
-11. 프로그램 종료
-    * 프로그램 동작에 소요된 시간 출력 및 
+### 6. *ERROR_not_appliable*
+봉사활동 상세 페이지에 신청하기 버튼이 존재하지 않는 경우.
+
+### 7. *ERROR_no_available_date*
+봉사활동에 모집중 상태인 날짜가 존재하지 않는 경우.
