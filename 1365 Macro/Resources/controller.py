@@ -83,7 +83,7 @@ print(Style.BRIGHT + ' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] 
 Select(driver.find_element_by_id('searchHopeArea1')).select_by_visible_text('경기도')
 Select(driver.find_element_by_id('searchHopeArea2')).select_by_visible_text('전체')
 Select(driver.find_element_by_id('searchSrvcStts')).select_by_visible_text('전체')
-#driver.find_element_by_name('searchKeyword').send_keys('동물보호센터 돌봄')
+driver.find_element_by_name('searchKeyword').send_keys('동물보호센터 돌봄')
 driver.find_element_by_id('btnSearch').click()
 print(Fore.GREEN + ' SUCCESS\n')
 
@@ -105,14 +105,8 @@ else:
     print(Fore.RED + Style.BRIGHT + ' ERROR_maximum_attempt_count_exceeded\n')
     sys.exit()
 
-#target_time = datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, 23, 59, 59, 800000)
-try:
-    target_time = datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, datetime.datetime.now().hour, datetime.datetime.now().minute, datetime.datetime.now().second + 5, 0)
-except ValueError:
-    print(Style.BRIGHT + ' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] Setting target_time. Please wait 5 sec...\n')
-    sleep(5)
-    target_time = datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, datetime.datetime.now().hour, datetime.datetime.now().minute, datetime.datetime.now().second + 5, 0)
-
+target_time = datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, 23, 59, 59, 800000)
+#target_time = datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, datetime.datetime.now().hour, datetime.datetime.now().minute, datetime.datetime.now().second + 5, 0)
 print(Style.BRIGHT + ' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] Waiting for targetted time : ' + str(target_time) + '...\n')
 while (target_time - (ntpTM + (datetime.datetime.now() - lclTM))).total_seconds() > 0 :
     print(Fore.YELLOW + Style.BRIGHT + ' Countdown : ' + Fore.RESET + str(target_time - (ntpTM + (datetime.datetime.now() - lclTM))) + Fore.YELLOW + '    Current : ' + Fore.RESET + str(ntpTM + (datetime.datetime.now() - lclTM)), end='\r')
@@ -182,7 +176,7 @@ print(Fore.GREEN + ' SUCCESS\n')
 
 print(Style.BRIGHT + ' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] Final apply...', end='')
 driver.find_element_by_id('btnRequest').click()
-#driver.switch_to.alert.accept()
+driver.switch_to.alert.accept()
 print(Fore.GREEN + ' SUCCESS\n')
 
 print(Style.BRIGHT + ' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] Terminating Program.')
