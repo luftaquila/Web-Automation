@@ -33,6 +33,7 @@ init(autoreset = True)
 id = input(' [+] ID 입력 : ')
 pwd = input(' [+] PW 입력 : ')
 ch = input(' [+] 요일 선택 : ')
+ch = 1
 
 print(Style.BRIGHT + '\n [' + str(datetime.datetime.now()) + '] Synchronizing time with NTP Server kr.pool.ntp.org...', end='')
 try:
