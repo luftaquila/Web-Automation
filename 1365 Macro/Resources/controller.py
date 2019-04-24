@@ -44,7 +44,7 @@ except ntplib.NTPException:
         ntpTM, lclTM = datetime.datetime.fromtimestamp(ntplib.NTPClient().request('time.google.com', version = 3).tx_time), datetime.datetime.now()
     except ntplib.NTPException:
         print(Fore.RED + Style.BRIGHT + ' ERROR_NTP_Server_not_responding\n')
-        print('NTP Server sync failure. Using local time...', end='')
+        print(Style.BRIGHT + ' [' + str(datetime.datetime.now()) + '] NTP Server sync failure. Using local time...', end='')
         ntpTM, lclTM = datetime.datetime.now(), datetime.datetime.now()
 print(Fore.GREEN + ' SUCCESS\n')
 
