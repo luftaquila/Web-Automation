@@ -76,7 +76,7 @@ try:
 except selenium.common.exceptions.UnexpectedAlertPresentException:
     print(Fore.RED + Style.BRIGHT + ' ERROR_login_failure_wrong_info\n')
     print(' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] ' + Fore.YELLOW + Style.BRIGHT + 'Restarting...\n')
-    os.system('control.exe')
+    os.system('tester.exe')
     sys.exit()
 print(Fore.GREEN + ' SUCCESS\n')
 
@@ -102,6 +102,9 @@ while attempt < 6:
             sleep(0.2)
 if not attempt == 5:
     print(Fore.GREEN + ' SUCCESS\n')
+    print(Fore.CYAN + Style.BRIGHT + ' 이 단계에서 봉사조회 검색창의 "모집상태" 항목을 "모집중"으로 설정합니다.')
+    print(Fore.CYAN + Style.BRIGHT + ' 로그에는 SUCCESS로 기록되어도 "전체" 상태로 유지되는 경우가 드물게 있습니다.')
+    print(Fore.CYAN + Style.BRIGHT + ' "모집 상태" 항목이 "모집중"이 아니라면 수동으로 "모집중"을 선택해 주세요.\n')
 else:
     print(Fore.RED + Style.BRIGHT + ' ERROR_maximum_attempt_count_exceeded\n')
     sys.exit()
