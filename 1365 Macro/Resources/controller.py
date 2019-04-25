@@ -64,7 +64,7 @@ try:
     driver.find_element_by_class_name('login').click()
 except selenium.common.exceptions.ElementNotVisibleException:
     print(Fore.RED + Style.BRIGHT + ' ERROR_login_failure_not_visible\n')
-    print(' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] ' + Fore.YELLOW + Style.BRIGHT + 'Retrying...', end='')
+    print(Style.BRIGHT + ' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] ' + Fore.YELLOW + 'Retrying...', end='')
     driver.find_element_by_xpath('//*[contains(@class, "login")]/a').click()
 try:
     driver.find_element_by_name('mberId').send_keys(id)
@@ -74,7 +74,7 @@ try:
     popupClose()
 except selenium.common.exceptions.UnexpectedAlertPresentException:
     print(Fore.RED + Style.BRIGHT + ' ERROR_login_failure_wrong_info\n')
-    print(' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] ' + Fore.YELLOW + Style.BRIGHT + 'Restarting...\n')
+    print(Style.BRIGHT + ' [' + str(ntpTM + (datetime.datetime.now() - lclTM)) + '] ' + Fore.YELLOW + 'Restarting...\n')
     os.system('controller.exe')
     sys.exit()
 print(Fore.GREEN + ' SUCCESS\n')
