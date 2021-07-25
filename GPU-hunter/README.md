@@ -5,7 +5,8 @@
 보다 특수한 환경에서 사용하는 경우 그에 맞춰 `main.py`를 적절히 수정해야 합니다.
 
 ## Prerequisites
-GPU-hunter는 **파이썬 3**과 **구글 크롬**을 필요로 합니다. 설치되어 있지 않다면 먼저 설치합니다.
+GPU-hunter는 **파이썬 3**과 **구글 크롬**을 필요로 합니다. 설치되어 있지 않다면 먼저 설치합니다.  
+[GPU-hunter](https://github.com/luftaquila/Web-Automation/releases/tag/1.0)에서 `GPU-hunter.zip`을 다운받고 압축을 해제합니다.
 
 ## Configuration
 1. Python 종속성 모듈 설치  
