@@ -2,10 +2,11 @@
 11번가의 리더스시스템즈 RTX FE 시리즈 구매 매크로입니다.
 #### Reminder
 이 README는 Windows 환경에서 표준 Chrome 빌드를 사용하는 일반적인 사용자를 위해 작성했습니다.  
-보다 특수한 환경에서 사용하는 경우 그에 맞춰 `main.py`를 적절히 수정해야 합니다.
+보다 특수한 환경에서 사용하는 경우 그에 맞춰 `main.py`와 `.env` 파일을 적절히 수정해야 합니다.
 
 ## Prerequisites
 GPU-hunter는 **파이썬 3**과 **구글 크롬**을 필요로 합니다. 설치되어 있지 않다면 먼저 설치합니다.
+[GPU-hunter Release](https://github.com/luftaquila/Web-Automation/releases/tag/1.0)에서 `GPU-hunter.zip`을 다운로드하고 압축을 해제합니다.
 
 ## Configuration
 1. Python 종속성 모듈 설치  
