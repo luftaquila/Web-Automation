@@ -25,6 +25,7 @@ try:
   options.add_experimental_option('prefs', { 'profile.managed_default_content_settings.images': 2 }) # prevent images
   options.add_experimental_option('mobileEmulation', { 'deviceName': 'Pixel 2 XL' }) # mobile emulation
   options.add_experimental_option('w3c', False) # for touch actions
+  options.add_argument('--auto-open-devtools-for-tabs') # starts with devtool
   driver = webdriver.Chrome('chromedriver.exe', options = options)
   driver.implicitly_wait(5)
 
@@ -32,6 +33,8 @@ except selenium.common.exceptions.WebDriverException:
   print('driver load failed.')
   sys.exit()
 print('driver loaded.')
+
+input('Activate mobile emulation and press ENTER')
 
 
 print('attempting login...')
@@ -45,38 +48,32 @@ print('login succeeded.')
 
 print('watching product status', end='', flush=True)
 driver.get(os.getenv('productURL' + os.getenv('mode')))
+cv2.namedWindow('keys')
 
 driver.implicitly_wait(0.1)
 while True:
   try:
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'dt_title')))
     driver.execute_script("document.querySelector(`div.buy > button[data-log-actionid-label='buy']`).click()")
-    print('\n  target found: javascript method.')
+    print('\n  target found.')
     break
 
-  except selenium.common.exceptions.JavascriptException: pass
-  try:
-    driver.find_element_by_css_selector('div.buy > button[data-log-actionid-label="buy"]').click()
-    print('\n  target found: selenium method.')
-    break
-
-  except selenium.common.exceptions.NoSuchElementException:
+  except selenium.common.exceptions.JavascriptException:
     print('.', end='', flush=True)
     driver.refresh()
-
-  except selenium.common.exceptions.TimeoutException: driver.refresh()
 driver.implicitly_wait(5)
 time.sleep(0.5)
-cv2.namedWindow('keys')
 
 
 print('processing options...')
 try:
-  driver.execute_script("document.querySelectorAll('#optlst_prdGrp > li')[1].click()")
+  driver.execute_script("document.querySelectorAll('ul.optlst > li')[0].click()")
   time.sleep(0.5)
 except Exception:
-  print('  failed processing options: ignoring.')
-  pass
+  try:
+    driver.find_element_by_css_selector('ul.optlst > li:nth-child(2)').click()
+    time.sleep(0.5)
+  except Exception: print('  failed processing options: ignoring.')
 
 try:
   driver.execute_script("document.querySelector(`div.buy > button[data-log-actionid-label='buy_now']`).click()")
@@ -126,7 +123,13 @@ for c in os.getenv('skpaypw'):
   key = str(key)
   touch.tap(driver.find_element_by_id('keypad11pay-keypad-' + key))
   print('    interpreted: keypad11pay-keypad-' + key)
-if os.getenv('purchase') == '1': touch.perform()
 
+if os.getenv('purchase') == '1':
+  touch.perform()
+  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'popup')))
+  driver.find_element_by_css_selector('#popup button').click()
+  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'btn-req-auth')))
+  driver.find_element_by_id('btn-req-auth').click()
+  
 driver.switch_to.default_content()
 print('done.')
