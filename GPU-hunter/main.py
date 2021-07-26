@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import base64
+from functools import reduce
 
 import cv2
 import numpy as np
@@ -35,7 +36,7 @@ except selenium.common.exceptions.WebDriverException:
 print('driver loaded.')
 
 cv2.namedWindow('keys')
-input('Activate mobile emulation and press ENTER')
+input('\nActivate mobile emulation and press ENTER\n\n')
 
 
 print('attempting login...')
@@ -44,10 +45,10 @@ driver.find_element_by_name('memId').send_keys(os.getenv('id'))
 driver.find_element_by_name('memPwd').send_keys(os.getenv('pw'))
 driver.find_element_by_class_name('bbtn').click()
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'root')))
-print('login succeeded.')
+print('  login succeeded.')
 
 
-print('watching product status', end='', flush=True)
+print('\nwatching product status', end='', flush=True)
 driver.get(os.getenv('productURL' + os.getenv('mode')))
 
 driver.implicitly_wait(0.1)
@@ -65,37 +66,59 @@ driver.implicitly_wait(5)
 time.sleep(0.5)
 
 
-print('processing options...')
+print('\nprocessing options...')
+opts = []
+for i, opt in enumerate(driver.find_elements_by_css_selector('ul.optlst > li > a')):
+  opts.append({ "index": i, "count": int(opt.get_attribute('data-stckqty')), "name": opt.get_attribute('data-optnm') })
+tgt = reduce(lambda x, y: x if x['count'] > y['count'] else y, opts)
+for opt in opts: print('  i:', opt['index'], ' c:', opt['count'], ' n:', opt['name'])
+
+# tgt = opts[0] # for debugging!!!
+
+print('\ntrying largest stock product:', tgt)
 try:
-  driver.execute_script("document.querySelectorAll('ul.optlst > li')[0].click()")
+  driver.execute_script("document.querySelectorAll('ul.optlst > li')[" + str(tgt['index']) + "].click()")
   time.sleep(0.5)
-except Exception:
+
+  print('  validating option selection...')
   try:
-    driver.find_element_by_css_selector('ul.optlst > li:nth-child(2)').click()
+    driver.execute_script("document.querySelector(`div.buy > button[data-log-actionid-label='buy_now']`).click()")
     time.sleep(0.5)
-  except Exception: print('  failed processing options: ignoring.')
+    driver.execute_script("document.querySelector(`div.buy > button[data-log-actionid-label='buy_now']`).click()")
 
-try:
-  driver.execute_script("document.querySelector(`div.buy > button[data-log-actionid-label='buy_now']`).click()")
-  print('  ok with javascript method.')
-except Exception:
-  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.buy > button[data-log-actionid-label="buy_now"]')))
-  driver.find_element_by_css_selector('div.buy > button[data-log-actionid-label="buy_now"]').click()
-  print('  ok with selenium method.')
-time.sleep(0.5)
+  except selenium.common.exceptions.UnexpectedAlertPresentException:
+    driver.switch_to.alert.accept()
+    print('  FAILED option validation. retrying from first item...')
+    for opt in opts:
+      print('    trying option:', opt)
+      driver.execute_script("document.querySelectorAll('ul.optlst > li')[" + str(opt['index']) + "].click()")
+      time.sleep(0.5)
+      try:
+        driver.execute_script("document.querySelector(`div.buy > button[data-log-actionid-label='buy_now']`).click()")
+        time.sleep(0.5)
+        driver.execute_script("document.querySelector(`div.buy > button[data-log-actionid-label='buy_now']`).click()")
+
+      except selenium.common.exceptions.UnexpectedAlertPresentException:
+        driver.switch_to.alert.accept()
+        print('      failed.')
+        continue
+      except selenium.common.exceptions.JavascriptException: break
+      break
+  except selenium.common.exceptions.JavascriptException: pass
+except Exception: print('  failed processing options: ignoring.')
 
 
-print('processing payment...')
+print('\nprocessing payment...')
 try:
   driver.execute_script("document.querySelector(`button#doPaySubmit`).click()")
   print('  payment click ok with javascript method.')
-except Exception:
+except selenium.common.exceptions.JavascriptException:
   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'doPaySubmit')))
   driver.find_element_by_id('doPaySubmit').click()
   print('  payment click ok with selenium method.')
 
 
-print('processing sk pay...')
+print('\nprocessing sk pay...')
 driver.switch_to.frame(driver.find_element_by_id('skpay-ui-frame'))
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'keypad11pay-keypad-number')))
 
@@ -130,6 +153,6 @@ if os.getenv('purchase') == '1':
   driver.find_element_by_css_selector('#popup button').click()
   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'btn-req-auth')))
   driver.find_element_by_id('btn-req-auth').click()
-  
+
 driver.switch_to.default_content()
-print('done.')
+print('\nDONE.')
