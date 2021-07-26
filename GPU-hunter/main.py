@@ -34,6 +34,7 @@ except selenium.common.exceptions.WebDriverException:
   sys.exit()
 print('driver loaded.')
 
+cv2.namedWindow('keys')
 input('Activate mobile emulation and press ENTER')
 
 
@@ -48,7 +49,6 @@ print('login succeeded.')
 
 print('watching product status', end='', flush=True)
 driver.get(os.getenv('productURL' + os.getenv('mode')))
-cv2.namedWindow('keys')
 
 driver.implicitly_wait(0.1)
 while True:
